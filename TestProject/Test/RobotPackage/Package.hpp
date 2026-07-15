@@ -21,11 +21,10 @@ public:
                 TARWI_RUN_MODULE(setup_module);
                 TARWI_RUN_MODULE(movement_module);
 
-                int total_successfull_tests = setup_module.successfull_tests + movement_module.successfull_tests;
-                int total_failed_tests = setup_module.failed_tests + movement_module.failed_tests;
-                int total_skipped_tests = setup_module.skipped_tests + movement_module.skipped_tests;
-
-                TARWI_OUTPUT("Executed all tests from package %s:\n", name);
-                TARWI_OUTPUT("Results: %d successfull, %d failed and %d skipped tests\n", total_successfull_tests, total_failed_tests, total_skipped_tests);
+                TARWI_DISPLAY_RESULTS(
+                        setup_module.successfull_tests + movement_module.successfull_tests,
+                        setup_module.failed_tests + movement_module.failed_tests,
+                        setup_module.skipped_tests + movement_module.skipped_tests
+                );
         }
 };

@@ -34,6 +34,12 @@
                 } \
         } while (0)
 
+/// Shortcut to skip a test.
+#define TARWI_SKIP() \
+        do { \
+                return Tarwi::Result::Skipped; \
+        } while (0)
+
 /// Run the main method of a test module.
 #define TARWI_RUN_MODULE(mname) \
         do { \
@@ -71,6 +77,14 @@
 /// Begin the definition of the main method of a test package.
 #define TARWI_PACKAGE_MAIN() \
         public: void main() override
+
+/// Display the amount of successfull, failed and skipped tests.
+/// This macro should be used from a package method.
+#define TARWI_DISPLAY_RESULTS(successfull, failed, skipped) \
+                do { \
+                        TARWI_OUTPUT("Executed all tests from package %s:\n", name); \
+                        TARWI_OUTPUT("Results: %d successfull, %d failed and %d skipped tests\n", successfull, failed, skipped); \
+                } while (0)
 
 namespace Tarwi {
 
