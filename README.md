@@ -34,7 +34,7 @@ Here is an example on how to define it:
                 } while (0)
 #endif
 ```
-Always do it **before including** `Tarwi.hpp`.
+Always do it **after including** `Tarwi.hpp`.
 
 ## Tests organization
 It is recommended to keep your **tests** away from your source code and headers. You could for example write them in a `Test/` directory.
