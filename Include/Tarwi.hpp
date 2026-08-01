@@ -41,22 +41,23 @@
         } while (0)
 
 /// Run the main method of a test module.
+/// To be used inside a package.
 #define TARWI_RUN_MODULE(mname) \
         do { \
-                TARWI_OUTPUT("Running module %s."#mname"...\n", this->name); \
+                TARWI_OUTPUT("Running module %s.%s...\n", this->name, mname.name); \
                 mname.main(); \
         } while (0)
 
 /// Run the main method of a package.
 #define TARWI_RUN_PACKAGE(pname) \
         do { \
-                TARWI_OUTPUT("Running package "#pname"...\n"); \
+                TARWI_OUTPUT("Running package %s...\n", pname.name); \
                 pname.main(); \
         } while (0)
 
 /// Set the name of a module or a package.
 #define TARWI_SET_NAME(xname) \
-        const char *name = xname;
+        public: const char *name = xname
 
 /// Begin the definition of a test unit.
 #define TARWI_UNIT(uname) \
