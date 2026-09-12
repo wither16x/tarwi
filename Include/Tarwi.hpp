@@ -23,13 +23,13 @@
         do { \
                 Tarwi::Result result = fname(__VA_ARGS__); \
                 if (result == Tarwi::Result::Success) { \
-                        TARWI_OUTPUT("%s."#fname"() successfull\n", this->name); \
+                        TARWI_OUTPUT("%s."#fname"() successfull", this->name); \
                         ++this->successfull_tests; \
                 } else if (result == Tarwi::Result::Skipped) { \
-                        TARWI_OUTPUT("Skipped %s."#fname"()\n", this->name); \
+                        TARWI_OUTPUT("Skipped %s."#fname"()", this->name); \
                         ++this->skipped_tests; \
                 } else { \
-                        TARWI_OUTPUT("%s."#fname"() failed\n", this->name); \
+                        TARWI_OUTPUT("%s."#fname"() failed", this->name); \
                         ++this->failed_tests; \
                 } \
         } while (0)
@@ -44,14 +44,14 @@
 /// To be used inside a package.
 #define TARWI_RUN_MODULE(mname) \
         do { \
-                TARWI_OUTPUT("Running module %s.%s...\n", this->name, mname.name); \
+                TARWI_OUTPUT("Running module %s.%s...", this->name, mname.name); \
                 mname.main(); \
         } while (0)
 
 /// Run the main method of a package.
 #define TARWI_RUN_PACKAGE(pname) \
         do { \
-                TARWI_OUTPUT("Running package %s...\n", pname.name); \
+                TARWI_OUTPUT("Running package %s...", pname.name); \
                 pname.main(); \
         } while (0)
 
@@ -83,35 +83,37 @@
 /// This macro should be used from a package method.
 #define TARWI_DISPLAY_RESULTS(successfull, failed, skipped) \
                 do { \
-                        TARWI_OUTPUT("Executed all tests from package %s:\n", name); \
-                        TARWI_OUTPUT("Results: %d successfull, %d failed and %d skipped tests\n", successfull, failed, skipped); \
+                        TARWI_OUTPUT("Executed all tests from package %s:", name); \
+                        TARWI_OUTPUT("Results: %d successfull, %d failed and %d skipped tests", successfull, failed, skipped); \
                 } while (0)
 
-namespace Tarwi {
+namespace Tarwi
+{
+        // --------------------------------- Package ---------------------------------
+        class Package
+        {
+        public:
+                virtual void main()
+                {}
+        };
 
-// --------------------------------- Package ---------------------------------
-class Package {
-public:
-        virtual void main()
-        {}
-};
+        // --------------------------------- Module ---------------------------------
+        class Module
+        {
+        public:
+                int successfull_tests = 0;
+                int failed_tests = 0;
+                int skipped_tests = 0;
 
-// --------------------------------- Module ---------------------------------
-class Module {
-public:
-        int successfull_tests = 0;
-        int failed_tests = 0;
-        int skipped_tests = 0;
+                virtual void main()
+                {}
+        };
 
-        virtual void main()
-        {}
-};
-
-// --------------------------------- Result ---------------------------------
-enum class Result : int {
-        Failed,
-        Success,
-        Skipped
-};
-
+        // --------------------------------- Result ---------------------------------
+        enum class Result
+        {
+                Failed,
+                Success,
+                Skipped
+        };
 } // namespace Tarwi
