@@ -23,7 +23,7 @@ cp Include/*.hpp MyProject/Test/Tarwi/
 Since Tarwi is designed to run in restricted environments like **operating system kernels**, it can be **configured** to adapt to its environment.
 The recommended way to do it is to create a header - for example `TarwiGlobals.hpp` and write the configuration in it.
 
-The **output function** must be defined. It is used by the `TARWI_OUTPUT()` macro, which expects a **printf-like** signature.
+The **output function** must be defined. It is used by the `TARWI_OUTPUT()` macro.
 Here is an example on how to define it:
 ```cpp
 #if defined(TARWI_OUTPUT)
@@ -35,6 +35,10 @@ Here is an example on how to define it:
 #endif
 ```
 Always do it **after including** `Tarwi.hpp`.
+
+By default, `TARWI_OUTPUT()` expects a **printf-like** signature, as it uses `%s` to insert strings and `%d` to insert integers. However you can change this by redefining the following macros:
+* `TARWI_FMT_STRING`
+* `TARWI_FMT_INTEGER`
 
 ## Tests organization
 It is recommended to keep your **tests** away from your source code and headers. You could for example write them in a `Test/` directory.
